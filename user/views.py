@@ -91,7 +91,7 @@ def jget_reminders_list(request, id_user):
 
 
 
-def generate_reminders():
+'''def generate_reminders():
 
         fav_item = FavoriteItems.objects.all()
         text = ''
