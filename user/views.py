@@ -110,7 +110,7 @@ def generate_reminders(id_user):
             item = random.choice(fav_item.f_options.split(','))
             n = Notification(user_id = fav_item.user_id,
                              favorite_id = fav_item.id,
-                             start_date = datetime.datetime.now(),
+                             start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
                              notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', item),
                              done = False,)
             n.save()

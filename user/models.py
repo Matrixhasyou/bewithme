@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 def run_init():
     U1 = User(firstname="Alice",
@@ -39,7 +40,7 @@ def run_init():
                       f_item = "flowers",
                       f_options = "roses",
                       f_last_q = "When did you las give {PARTNERSNAME}",
-                      f_last_date = None,
+                      f_last_date = datetime.time(2018, 3, 8),
                       how_often = 60,
                       notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
 
@@ -50,7 +51,7 @@ def run_init():
                       f_item = "cusine",
                       f_options = "Italian cuisine,Thai cuisine",
                       f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}",
-                      f_last_date = None,
+                      f_last_date = datetime.time(2018, 1, 1),
                       how_often = 60,
                       notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}")
     F2.save()
