@@ -99,7 +99,7 @@ class User(models.Model):
         'firstname' : self.firstname,
         'lastname' : self.lastname,
         'email' : self.email,
-        'gender' : self.password,
+        'gender' : self.gender,
         }
         return data
 
