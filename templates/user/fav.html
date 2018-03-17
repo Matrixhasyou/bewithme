@@ -1,0 +1,8 @@
+{% block content%}
+{{user.firstname}} {{user.lastname}}
+{%for f in fav%}
+  <br>
+  {{f.get_question}}
+{% endfor %}
+
+{% endblock %}

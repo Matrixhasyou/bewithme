@@ -1,0 +1,8 @@
+{% block content%}
+{{user.firstname}} {{user.lastname}}
+{%for q in question%}
+  {{q.question_text}} {{q.get_options}}
+  {{q.get_question}}
+{% endfor %}
+
+{% endblock %}
