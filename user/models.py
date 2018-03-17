@@ -67,26 +67,6 @@ class Notification(models.Model):
     not_text = models.CharField(max_length=500, default="", blank=True)
     done = models.BooleanField(default=False)
 
-    def generate(self):
-        fav_item = FavoriteItems.objects.all()
-        text = ''
-        name = User.objects.get(id=fav_item.user_id).firstname
-        for item in fav_items:
-            name = User.objects.get(id=fav_item.user_id).firstname
-            data = {'date_to_notify': fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often)}
-            if fav_item.f_item == "cuisine":
-                text = "Time to take " + name + " eat some " + random.choice(fav_item.f_options.split(',')) + " cuisine"
-            elif fav_item.f_item == "flowers":
-                text = "Time to get " + name + " a cute bunch of " + random.choice(fav_item.f_options.split(','))
-            elif fav_item.f_item == "go_out":
-                text = "It's time that you and " + name + " went " + random.choice(fav_item.f_options.split(','))
-            elif fav_item.f_item == "vacation":
-                text = "Vacation time! You know what would be great? " + random.choice(fav_item.f_options.split(',')).capitalize()
-            elif fav_item.f_item == "music":
-                text = "It's a long time since you and " + name + " shared " + random.choice(fav_item.f_options.split(','))
-
-        data['text'] = text
-        return data
 
 class FavoriteItems(models.Model):
     question_text = models.CharField(max_length=200, default="null")
@@ -120,6 +100,8 @@ class FavoriteItems(models.Model):
             return int(string[-2])*30
         elif string[-1] == "year":
             return 365
+        elif string[-1] == 'chosen':
+            return 0
 
     def days_to_how_often(self, days):
         if days / 365 >= 1:
@@ -128,6 +110,8 @@ class FavoriteItems(models.Model):
             return 'every '+ days // 30 + ' months'
         elif days / 7 <=1 :
             return 'every week'
+        elif days == 0:
+            return 'Not chosen'
 
 
     def get_dict_second(self, name):

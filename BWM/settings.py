@@ -24,13 +24,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'su(ok%)+vumfzswmt(mrb+a1d%%*1v9+o&sc8gn0av9ra7y7+%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #SECRET_KEY = config('SECRET_KEY')
 #DEBUG = config('DEBUG', default=False, cast=bool)
-DATABASES = {
+'''DATABASES = {
     'default': 'postgres://ayjynunyroqndv:f9df5ce6558bb463c6b5e4d01755207f238573f27364da6841422be72ccf215c@ec2-174-129-26-203.compute-1.amazonaws.com:5432/d5be8n2v716hlr'
-    }
+    }'''
 
 
 ALLOWED_HOSTS = []
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'BWM.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BWM',
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'BWM.wsgi.application'
         'PASSWORD': 'toor',
         'HOST': 'localhost',
     }
-}'''
+}
 
 
 
@@ -130,12 +130,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

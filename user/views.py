@@ -58,7 +58,9 @@ def profile(request, id_user):
         return 'OK'
     else:
         user = User.objects.get(id=id_user)
-        data = []
+        data = {
+
+        }
         for obj in FavoriteItems.objects.all():
             data.append(obj.get_dict_first(),)
         return JsonResponse(data, safe=False)
@@ -75,6 +77,38 @@ def jpartners_likes(request, id_user):
 def get_reminders_list(request):
     reminders_list = Notification.objects.all()
     data = []
-    for q in reminders_list:
-        data.append(reminder.generate())
+    #generate_reminders()
+
     return JsonResponse(data, safe=False)
+
+'''def generate_reminders():
+
+        fav_item = FavoriteItems.objects.all()
+        text = ''
+        name = User.objects.get(id=fav_item.user_id).firstname
+        for item in fav_items:
+            name = User.objects.get(id=fav_item.user_id).firstname
+            date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often)
+            item.notification_text = 'jkhygjygkjgy'
+
+
+
+
+
+
+            data = {'date_to_notify': fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often)}
+            if fav_item.f_item == "cuisine":
+                text = "Time to take " + name + " eat some " + random.choice(fav_item.f_options.split(',')) + " cuisine"
+            elif fav_item.f_item == "flowers":
+                text = "Time to get " + name + " a cute bunch of " + random.choice(fav_item.f_options.split(','))
+            elif fav_item.f_item == "go_out":
+                text = "It's time that you and " + name + " went " + random.choice(fav_item.f_options.split(','))
+            elif fav_item.f_item == "vacation":
+                text = "Vacation time! You know what would be great? " + random.choice(fav_item.f_options.split(',')).capitalize()
+            elif fav_item.f_item == "music":
+                text = "It's a long time since you and " + name + " shared " + random.choice(fav_item.f_options.split(',')
+
+
+        return JsonResponse({'text': text})
+
+        def get_dict(self):'''
