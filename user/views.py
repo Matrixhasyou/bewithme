@@ -8,10 +8,6 @@ def init(request):
     run_init()
     return "DONE!"
 
-def profile(self, id_user):
-    user = User.objects.get(id=id_user)
-    return JsonResponse(user.get_dict() , safe=False)
-
 def auth(request):
     if request.method == 'POST':
         try:
@@ -19,24 +15,22 @@ def auth(request):
         except User.DoesNotExist:
             return render(request, 'user/auth.html')
         if request.POST.get("password", "") == check_user.password:
-            return redirect("inin", check_user.id) # in page
+            return redirect("question_list", check_user.id) # in page
         else: return render(request, 'user/auth.html')
     else:
         return render(request, 'user/auth.html')
 
-def q_page(request, id_page):
+def question_list(request, id_page):
     user = User.objects.get(id=id_page)
     q = Question.objects.all()
     return render(request, "user/questionary.html", {"user": user,
-                                                     "question": q,
-                                                        })
+                                                     "question": q,})
 
-def a_page(request, id_page):
+def partners_likes(request, id_page):
     user = User.objects.get(id=id_page)
     f = FavoriteItems.objects.filter(user_id = user.relation)
     return render(request, "user/fav.html", {"user": user,
-                                                     "fav": f,
-                                                      })
+                                             "fav": f,})
 
 def jauth(request):
     data = {}
@@ -53,18 +47,23 @@ def jauth(request):
     else:
         return JsonResponse(data)
 
-def question_list(request, id_user):
+def jprofile(self, id_user):
+    user = User.objects.get(id=id_user)
+    return JsonResponse(user.get_dict() , safe=False)
+
+
+def jquestion_list(request, id_user):
     if request.method == 'POST':
         fav_id = request.POST.get("fav_id", "")
         fav_item = FavoriteItems.objects.get(id=fav_id)
         fav_item.options = request.POST.get("options", "")
         fav_item.save()
-        return 'OK'
+        return JsonResponse({})
     else:
         user = User.objects.get(id=id_user)
         data = []
-        for obj in FavoriteItems.objects.all():
-            data.append(obj.get_dict_first(),)
+        for fav_item in FavoriteItems.objects.filter(id=user.relation):
+            data.append(fav_item.get_dict_first(),)
         return JsonResponse(data, safe=False)
 
 def jpartners_likes(request, id_user):
@@ -74,6 +73,7 @@ def jpartners_likes(request, id_user):
         fav_item.f_last_date = request.POST.get("last_date", "")
         fav_item.how_often = how_often_to_days(request.POST.get("how_often", ""))
         fav_item.save()
+        return JsonResponse({})
     else:
         rel = User.objects.get(id=id_user).relation
         data = []
@@ -83,12 +83,14 @@ def jpartners_likes(request, id_user):
             data.append(f.get_dict_second(partner_name))
         return JsonResponse(data, safe=False)
 
-def get_reminders_list(request):
+def jget_reminders_list(request, id_user):
     reminders_list = Notification.objects.all()
     data = []
     #generate_reminders()
 
     return JsonResponse(data, safe=False)
+
+
 
 '''def generate_reminders():
 

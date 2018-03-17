@@ -16,21 +16,47 @@ def run_init():
                 password="bob",
                 gender="male",
                 relation="1",)
+
     U2.save()
-    Q = Question(question_text = 'What are your favorite flowers?',
+
+    Q1 = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
-                 q_options_list = "roses/daisys/tulips",
-                 q_last = "When did you las give {PARTNERSNAME}",)
-    Q.save()
-    F = FavoriteItems(question_text = 'What are your favorite flowers?',
-                      f_options_list = "roses/daisys/tulips",
+                 q_options_list = "roses,daisies,tulips",
+                 q_last = "When did you last give {PARTNERSNAME}",
+                 notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}" #to dict
+                 )
+    Q1.save()
+
+    Q2 = Question(question_text = 'What is your favorite cuisine?',
+                 q_item = "cusine",
+                 q_options_list = "Italian cuisine,Thai cuisine,French cuisine",
+                 q_last = "When did you last take {PARTNERSNAME} to try {ITEM}",
+                 notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}" #to dict
+                 )
+    Q2.save()
+
+    F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
+                      f_options_list = "roses,daisies,tulips",
                       user_id = 1,
                       f_item = "flowers",
                       f_options = "roses",
                       f_last_q = "When did you las give {PARTNERSNAME}",
                       f_last_date = None,
-                      how_often = 60,)
-    F.save()
+                      how_often = 60,
+                      notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
+
+    F1.save()
+    F2 = FavoriteItems(question_text = 'What is your favorite cuisine?',
+                      f_options_list = "Italian cuisine,Thai cuisine,French cuisine",
+                      user_id = 1,
+                      f_item = "cusine",
+                      f_options = "Italian cuisine,Thai cuisine",
+                      f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}",
+                      f_last_date = None,
+                      how_often = 60,
+                      notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}")
+    F2.save()
+
     return HttpResponse('Done!')
 
 def how_often_to_days(how_often):
@@ -99,6 +125,7 @@ class Question(models.Model):
         return data
 
 class Notification(models.Model):
+    user_id = models.IntegerField(default=0, null=True)
     favorite_id = models.IntegerField(default=0, null=True)
     start_date = models.DateField(null=True, default=None)
     not_text = models.CharField(max_length=500, default="", blank=True)
@@ -106,12 +133,12 @@ class Notification(models.Model):
 
     def get_dict(self):
         data = {
+            'user_id' : self.user_id,
             'favorite_id' : self.favorite_id,
             'start_date' : self.start_date,
             'notifications_text' : self.not_text,#
             'done' : self.done, }
         return data
-
 
 class FavoriteItems(models.Model):
     question_text = models.CharField(max_length=200, default="null")
