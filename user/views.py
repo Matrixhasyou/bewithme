@@ -106,7 +106,7 @@ def generate_reminders(id_user):
             pass
         if need_to_create_notification:
             user = User.objects.get(id=id_user)
-            item = random.choise(fav_item.f_options)
+            item = random.choice(fav_item.f_options.split(','))
             n = Notification(user_id = fav_item.user_id,
                              favorite_id = fav_item.id,
                              start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
