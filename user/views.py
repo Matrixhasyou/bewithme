@@ -100,7 +100,11 @@ def jget_reminders_list(request, id_user):
             if not notification.done:
                 need_to_create_notification = False
         if need_to_create_notification:
-            n = Notification()
+            n = Notification(user_id = fav_item,
+                             favorite_id =
+                             start_date =
+                             not_text =
+                             done =
 
 
 

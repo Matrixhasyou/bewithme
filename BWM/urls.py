@@ -27,10 +27,10 @@ urlpatterns = [
             path('q_l/<int:id_page>', views.question_list, name="q_l"),
             path('p_l/<int:id_page>', views.partners_likes, name="p_l"),
 
-            path('jauth', views.jauth, name="auth"),
-            path('profile/<int:id_user>', views.jprofile, name="jprof"),
-            path('question_list/<int:id_user>', views.jquestion_list, name="jq_l"),
-            path('partners_likes/<int:id_user>', views.jpartners_likes, name="jp_l"),
-            path('reminders_list/<int:id_user>', views.jget_reminders_list, name="jreminder"),]
+            path('api/jauth', views.jauth, name="auth"),
+            path('api/profile/<int:id_user>', views.jprofile, name="jprof"),
+            path('api/question_list/<int:id_user>', views.jquestion_list, name="jq_l"),
+            path('api/partners_likes/<int:id_user>', views.jpartners_likes, name="jp_l"),
+            path('api/reminders_list/<int:id_user>', views.jget_reminders_list, name="jreminder"),]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
