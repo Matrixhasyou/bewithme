@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.http import JsonResponse
 from django.http import HttpResponse
-from .models import User, Question, FavoriteItems, run_init, Notification
+from .models import User, Question, FavoriteItems, run_init, Notification, how_often_to_days, days_to_how_often
 
 def init(request):
     run_init()
@@ -72,7 +72,7 @@ def jpartners_likes(request, id_user):
         fav_item = FavoriteItems.objects.get(question_id=request.POST.get("question_id", ""))
         #if request.POST.get("last_date", "") != '':
         fav_item.f_last_date = request.POST.get("last_date", "")
-        fav_item.how_often = request.POST.get("how_often", "")
+        fav_item.how_often = how_often_to_days(request.POST.get("how_often", ""))
         fav_item.save()
     else:
         rel = User.objects.get(id=id_user).relation

@@ -33,6 +33,29 @@ def run_init():
     F.save()
     return HttpResponse('Done!')
 
+def how_often_to_days(how_often):
+    string = how_often.split(' ')
+    if string[-1] == "week":
+        return 7
+    elif string[-1] == "month":
+        return 30
+    elif string[-1] == "months":
+        return int(string[-2])*30
+    elif string[-1] == "year":
+        return 365
+    elif string[-1] == 'chosen':
+        return 0
+
+def days_to_how_often(days):
+    if days / 365 >= 1:
+        return 'every year'
+    elif days / 30 > 1:
+        return 'every '+ str(days // 30) + ' months'
+    elif days / 7 <=1 :
+        return 'every week'
+    elif days == 0:
+        return 'Not chosen'
+
 class User(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
@@ -112,34 +135,11 @@ class FavoriteItems(models.Model):
                   }
         return data
 
-    def how_often_to_days(self, how_often):
-        string = how_often.split(' ')
-        if string[-1] == "week":
-            return 7
-        elif string[-1] == "month":
-            return 30
-        elif string[-1] == "months":
-            return int(string[-2])*30
-        elif string[-1] == "year":
-            return 365
-        elif string[-1] == 'chosen':
-            return 0
-
-    def days_to_how_often(self, days):
-        if days / 365 >= 1:
-            return 'every year'
-        elif days / 30 > 1:
-            return 'every '+ str(days // 30) + ' months'
-        elif days / 7 <=1 :
-            return 'every week'
-        elif days == 0:
-            return 'Not chosen'
-
-
     def get_dict_second(self, name):
         data = {'last_question': self.f_last_q.replace('{PARTNERSNAME}', name)+' '+random.choice(self.f_options.split(','))+'?',
                 'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
-                'how_often' : self.days_to_how_often(self.how_often),
+                'how_often' : days_to_how_often(self.how_often),
+                'question_id' : self.question_id,
             }
         return data
