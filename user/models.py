@@ -137,7 +137,8 @@ class FavoriteItems(models.Model):
 
 
     def get_dict_second(self, name):
-        data = {'last_question': self.f_last_q.replace('{PARTNERSNAME}', name)+' '+random.choice(self.f_options.split(','))+'.',
+        data = {'last_question': self.f_last_q.replace('{PARTNERSNAME}', name)+' '+random.choice(self.f_options.split(','))+'?',
+                'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
                 'how_often' : self.days_to_how_often(self.how_often),
             }

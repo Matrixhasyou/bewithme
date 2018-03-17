@@ -55,10 +55,10 @@ def jauth(request):
 
 def question_list(request, id_user):
     if request.method == 'POST':
-        fav_id = request.fav_id
-        f = FavoriteItems.objects.get(id=fav_id)
-        f.options = request.options
-        f.save()
+        fav_id = request.POST.get("fav_id", "")
+        fav_item = FavoriteItems.objects.get(id=fav_id)
+        fav_item.options = request.POST.get("options", "")
+        fav_item.save()
         return 'OK'
     else:
         user = User.objects.get(id=id_user)
@@ -68,13 +68,20 @@ def question_list(request, id_user):
         return JsonResponse(data, safe=False)
 
 def jpartners_likes(request, id_user):
-    rel = User.objects.get(id=id_user).relation
-    data = []
-    partner_name = User.objects.get(id=rel).firstname
-    fav_items = FavoriteItems.objects.filter(user_id = rel)
-    for f in fav_items:
-        data.append(f.get_dict_second(partner_name))
-    return JsonResponse(data, safe=False)
+    if request.method == "POST":
+        fav_item = FavoriteItems.objects.get(question_id=request.POST.get("question_id", ""))
+        #if request.POST.get("last_date", "") != '':
+        fav_item.f_last_date = request.POST.get("last_date", "")
+        fav_item.how_often = request.POST.get("how_often", "")
+        fav_item.save()
+    else:
+        rel = User.objects.get(id=id_user).relation
+        data = []
+        partner_name = User.objects.get(id=rel).firstname
+        fav_items = FavoriteItems.objects.filter(user_id = rel)
+        for f in fav_items:
+            data.append(f.get_dict_second(partner_name))
+        return JsonResponse(data, safe=False)
 
 def get_reminders_list(request):
     reminders_list = Notification.objects.all()
