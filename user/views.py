@@ -96,10 +96,11 @@ def generate_reminders(id_user):
     fav_items = FavoriteItems.objects.filter(user_id=id_user)
     need_to_create_notification = True
     for fav_item in fav_items:
-        notifications = Notification.object.filter(favorite_id=fav_item.id)
-        for notification in notifications:
-            if not notification.done:
-                need_to_create_notification = False
+        try:
+            notifications = Notification.object.filter(favorite_id=fav_item.id)
+            for notification in notifications:
+                if not notification.done:
+                    need_to_create_notification = False
         if need_to_create_notification:
             user = User.objects.get(id=id_user)
             item = random.choise(fav_item.f_options)

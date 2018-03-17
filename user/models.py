@@ -57,7 +57,7 @@ def run_init():
                       notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}")
     F2.save()
 
-    return HttpResponse('Done!')
+    return 'Done!'
 
 def how_often_to_days(how_often):
     string = how_often.split(' ')
