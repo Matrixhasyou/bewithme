@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('jauth', views.jauth, name="auth"),
     path('profile/<int:id_user>', views.profile, name="prof"),
+    path('question_list/<int:id_user>', views.question_list, name="q"),
     path('partners_likes/<int:id_user>', views.jpartners_likes, name="a"),
     path('reminders_list/', views.get_reminders_list, name="rem"),
 ]

@@ -8,6 +8,10 @@ def init(request):
     run_init()
     return "DONE!"
 
+def profile(self, id_user):
+    user = User.objects.get(id=id_user)
+    return JsonResponse(user.get_dict() , safe=False)
+
 def auth(request):
     if request.method == 'POST':
         try:
@@ -49,7 +53,7 @@ def jauth(request):
     else:
         return JsonResponse(data)
 
-def profile(request, id_user):
+def question_list(request, id_user):
     if request.method == 'POST':
         fav_id = request.fav_id
         f = FavoriteItems.objects.get(id=fav_id)
@@ -58,9 +62,7 @@ def profile(request, id_user):
         return 'OK'
     else:
         user = User.objects.get(id=id_user)
-        data = {
-
-        }
+        data = []
         for obj in FavoriteItems.objects.all():
             data.append(obj.get_dict_first(),)
         return JsonResponse(data, safe=False)

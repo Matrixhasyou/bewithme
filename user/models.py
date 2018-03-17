@@ -3,6 +3,20 @@ import random
 import datetime
 
 def run_init():
+    U1 = User(firstname="Alice",
+                lastname="A",
+                email="a@a.com",
+                password="alice",
+                gender="female",
+                relation="2",     )
+    U1.save()
+    U2 = User(firstname="Bob",
+                lastname="B",
+                email="b@a.com",
+                password="bob",
+                gender="male",
+                relation="1",)
+    U2.save()
     Q = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
                  q_options_list = "roses/daisys/tulips",

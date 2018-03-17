@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+try:
+   import pymysql
+   pymysql.install_as_MySQLdb()
+except:
+   pass
 #import django_heroku
 #django_heroku.settings(locals())
 
@@ -27,14 +32,7 @@ SECRET_KEY = 'su(ok%)+vumfzswmt(mrb+a1d%%*1v9+o&sc8gn0av9ra7y7+%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#SECRET_KEY = config('SECRET_KEY')
-#DEBUG = config('DEBUG', default=False, cast=bool)
-'''DATABASES = {
-    'default': 'postgres://ayjynunyroqndv:f9df5ce6558bb463c6b5e4d01755207f238573f27364da6841422be72ccf215c@ec2-174-129-26-203.compute-1.amazonaws.com:5432/d5be8n2v716hlr'
-    }'''
-
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["188.166.69.118", "127.0.0.1"]
 
 
 # Application definition
@@ -88,10 +86,10 @@ TEMPLATES = [
 DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BWM',
+        'NAME': 'bewithme',
         'USER': 'root',
         'PASSWORD': 'toor',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
     }
 }
 
