@@ -6,7 +6,7 @@ from .models import User, Question, FavoriteItems, run_init, Notification, how_o
 
 def init(request):
     run_init()
-    return "DONE!"
+    return HttpResponse("DONE!")
 
 def auth(request):
     if request.method == 'POST':
@@ -60,9 +60,8 @@ def jquestion_list(request, id_user):
         fav_item.save()
         return JsonResponse({})
     else:
-        user = User.objects.get(id=id_user)
         data = []
-        for fav_item in FavoriteItems.objects.filter(id=user.relation):
+        for fav_item in FavoriteItems.objects.filter(user_id=id_user):
             data.append(fav_item.get_dict_first(),)
         return JsonResponse(data, safe=False)
 
@@ -92,7 +91,7 @@ def jget_reminders_list(request, id_user):
 
 
 
-'''def generate_reminders():
+def generate_reminders():
 
         fav_item = FavoriteItems.objects.all()
         text = ''
