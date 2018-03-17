@@ -25,6 +25,7 @@ urlpatterns = [
     path('out/<int:id_page>', views.a_page, name="outout"),
 
     path('jauth', views.jauth, name="auth"),
-    path('question_page/<int:id_user>', views.jq_page, name="q"),
-    path('partners_likes/<int:id_user>', views.jpartners_likes, name="a")
+    path('profile/<int:id_user>', views.profile, name="prof"),
+    path('partners_likes/<int:id_user>', views.jpartners_likes, name="a"),
+    path('reminders_list/', views.get_reminders_list, name="rem"),
 ]

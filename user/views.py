@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.http import JsonResponse
 from django.http import HttpResponse
-from .models import User, Question, FavoriteItems, run_init
+from .models import User, Question, FavoriteItems, run_init, Notification
 
 def init(request):
     run_init()
@@ -49,7 +49,7 @@ def jauth(request):
     else:
         return JsonResponse(data)
 
-def jq_page(request, id_user):
+def profile(request, id_user):
     if request.method == 'POST':
         fav_id = request.fav_id
         f = FavoriteItems.objects.get(id=fav_id)
@@ -71,4 +71,10 @@ def jpartners_likes(request, id_user):
     for f in fav_items:
         data.append(f.get_dict_second(partner_name))
     return JsonResponse(data, safe=False)
- 
+
+def get_reminders_list(request):
+    reminders_list = Notification.objects.all()
+    data = []
+    for q in reminders_list:
+        data.append(reminder.generate())
+    return JsonResponse(data, safe=False)
