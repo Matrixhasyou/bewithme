@@ -83,15 +83,15 @@ WSGI_APPLICATION = 'BWM.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+'''DATABASES = {
+   'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BWM',
         'USER': 'root',
         'PASSWORD': 'toor',
         'HOST': 'localhost',
     }
-}
+}'''
 
 
 
