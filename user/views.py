@@ -101,6 +101,8 @@ def generate_reminders(id_user):
             for notification in notifications:
                 if not notification.done:
                     need_to_create_notification = False
+        except:
+            pass
         if need_to_create_notification:
             user = User.objects.get(id=id_user)
             item = random.choise(fav_item.f_options)
