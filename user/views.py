@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from .models import User, Question, FavoriteItems, run_init, Notification, how_often_to_days, days_to_how_often
 import random
+import datetime
 
 def init(request):
     run_init()

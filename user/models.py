@@ -1,6 +1,4 @@
 from django.db import models
-import random
-import datetime
 
 def run_init():
     U1 = User(firstname="Alice",
