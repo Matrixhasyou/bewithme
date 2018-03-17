@@ -31,7 +31,7 @@ def run_init():
                       f_last_date = None,
                       how_often = 60,)
     F.save()
-
+    return HttpResponse('Done!')
 
 class User(models.Model):
     firstname = models.CharField(max_length=255)
@@ -81,6 +81,14 @@ class Notification(models.Model):
     not_text = models.CharField(max_length=500, default="", blank=True)
     done = models.BooleanField(default=False)
 
+    def get_dict(self):
+        data = {
+            'favorite_id' : self.favorite_id,
+            'start_date' : self.start_date,
+            'notifications_text' : self.not_text,#
+            'done' : self.done, }
+        return data
+
 
 class FavoriteItems(models.Model):
     question_text = models.CharField(max_length=200, default="null")
@@ -121,7 +129,7 @@ class FavoriteItems(models.Model):
         if days / 365 >= 1:
             return 'every year'
         elif days / 30 > 1:
-            return 'every '+ days // 30 + ' months'
+            return 'every '+ str(days // 30) + ' months'
         elif days / 7 <=1 :
             return 'every week'
         elif days == 0:
