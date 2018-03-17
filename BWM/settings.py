@@ -29,9 +29,9 @@ DEBUG = True
 
 #SECRET_KEY = config('SECRET_KEY')
 #DEBUG = config('DEBUG', default=False, cast=bool)
-DATABASES = {
+'''DATABASES = {
     'default': 'postgres://ayjynunyroqndv:f9df5ce6558bb463c6b5e4d01755207f238573f27364da6841422be72ccf215c@ec2-174-129-26-203.compute-1.amazonaws.com:5432/d5be8n2v716hlr'
-    }
+    }'''
 
 
 ALLOWED_HOSTS = []
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'BWM.urls'
@@ -79,13 +79,13 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'BWM.wsgi.application'
+#WSGI_APPLICATION = 'BWM.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'BWM',
@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'BWM.wsgi.application'
         'PASSWORD': 'toor',
         'HOST': 'localhost',
     }
-}'''
+}
 
 
 
@@ -139,4 +139,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
