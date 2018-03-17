@@ -35,9 +35,8 @@ DATABASES = {
         'NAME': 'cTools',
         'USER': 'root',
         'PASSWORD': 'toor',
-        'HOST': 'localhost','''
+        'HOST': 'localhost',}'''
     }
-}
 
 
 ALLOWED_HOSTS = []
