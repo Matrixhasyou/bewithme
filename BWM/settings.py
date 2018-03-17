@@ -30,12 +30,6 @@ DEBUG = False
 #DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
     'default': 'postgres://ayjynunyroqndv:f9df5ce6558bb463c6b5e4d01755207f238573f27364da6841422be72ccf215c@ec2-174-129-26-203.compute-1.amazonaws.com:5432/d5be8n2v716hlr'
-    '''default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cTools',
-        'USER': 'root',
-        'PASSWORD': 'toor',
-        'HOST': 'localhost',}'''
     }
 
 
