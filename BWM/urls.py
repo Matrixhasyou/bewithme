@@ -32,4 +32,4 @@ urlpatterns = [
             path('partners_likes/<int:id_user>', views.jpartners_likes, name="jp_l"),
             path('reminders_list/<int:id_user>', views.jget_reminders_list, name="jreminder"),]
 
-urlpatterns += urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
