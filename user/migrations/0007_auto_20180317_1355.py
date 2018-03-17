@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='notification',
-            name='not_text',
+            name='notification_text',
             field=models.CharField(blank=True, default='', max_length=500),
         ),
         migrations.AddField(

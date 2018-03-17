@@ -83,15 +83,16 @@ def jpartners_likes(request, id_user):
         return JsonResponse(data, safe=False)
 
 def jget_reminders_list(request, id_user):
-    reminders_list = Notification.objects.all()
     data = []
-    #generate_reminders()
-
+    generate_reminders(id_user)
+    reminders_list = Notification.objects.all()
+    for reminder in reminders_list:
+        data.append(reminder.get_dict())
     return JsonResponse(data, safe=False)
 
 
 
-'''def generate_reminders(id_user):
+def generate_reminders(id_user):
     fav_items = FavoriteItems.objects.filter(user_id=id_user)
     need_to_create_notification = True
     for fav_item in fav_items:
@@ -100,50 +101,11 @@ def jget_reminders_list(request, id_user):
             if not notification.done:
                 need_to_create_notification = False
         if need_to_create_notification:
-            n = Notification(user_id = fav_item,
-                             favorite_id =
-                             start_date =
-                             not_text =
-                             done =
-
-
-
-
-
-
-        // if there is no pending task,
-        // create notification_text
-
-
-
-
-
-        fav_item = FavoriteItems.objects.all()
-        text = ''
-        name = User.objects.get(id=fav_item.user_id).firstname
-        for item in fav_items:
-            name = User.objects.get(id=fav_item.user_id).firstname
-            date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often)
-            item.notification_text = 'jkhygjygkjgy'
-
-
-
-
-
-
-            data = {'date_to_notify': fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often)}
-            if fav_item.f_item == "cuisine":
-                text = "Time to take " + name + " eat some " + random.choice(fav_item.f_options.split(',')) + " cuisine"
-            elif fav_item.f_item == "flowers":
-                text = "Time to get " + name + " a cute bunch of " + random.choice(fav_item.f_options.split(','))
-            elif fav_item.f_item == "go_out":
-                text = "It's time that you and " + name + " went " + random.choice(fav_item.f_options.split(','))
-            elif fav_item.f_item == "vacation":
-                text = "Vacation time! You know what would be great? " + random.choice(fav_item.f_options.split(',')).capitalize()
-            elif fav_item.f_item == "music":
-                text = "It's a long time since you and " + name + " shared " + random.choice(fav_item.f_options.split(',')
-
-
-        return JsonResponse({'text': text})
-
-        def get_dict(self):'''
+            user = User.objects.get(id=id_user)
+            item = random.choise(fav_item.f_options)
+            n = Notification(user_id = fav_item.user_id,
+                             favorite_id = fav_item.id,
+                             start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
+                             notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', item),
+                             done = False,)
+            n.save()

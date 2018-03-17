@@ -128,7 +128,7 @@ class Notification(models.Model):
     user_id = models.IntegerField(default=0, null=True)
     favorite_id = models.IntegerField(default=0, null=True)
     start_date = models.DateField(null=True, default=None)
-    not_text = models.CharField(max_length=500, default="", blank=True)
+    notification_text = models.CharField(max_length=500, default="", blank=True)
     done = models.BooleanField(default=False)
 
     def get_dict(self):
@@ -136,7 +136,7 @@ class Notification(models.Model):
             'user_id' : self.user_id,
             'favorite_id' : self.favorite_id,
             'start_date' : self.start_date,
-            'notifications_text' : self.not_text,#
+            'notifications_text' : self.notification_text,#
             'done' : self.done, }
         return data
 
