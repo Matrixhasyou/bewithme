@@ -140,6 +140,6 @@ class FavoriteItems(models.Model):
                 'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
                 'how_often' : days_to_how_often(self.how_often),
-                'question_id' : self.question_id,
+                'favoriteitem_id' : self.id,
             }
         return data

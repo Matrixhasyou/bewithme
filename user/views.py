@@ -69,7 +69,7 @@ def question_list(request, id_user):
 
 def jpartners_likes(request, id_user):
     if request.method == "POST":
-        fav_item = FavoriteItems.objects.get(question_id=request.POST.get("question_id", ""))
+        fav_item = FavoriteItems.objects.get(id=request.POST.get("favoriteitem_id", ""))
         #if request.POST.get("last_date", "") != '':
         fav_item.f_last_date = request.POST.get("last_date", "")
         fav_item.how_often = how_often_to_days(request.POST.get("how_often", ""))
