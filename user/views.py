@@ -13,6 +13,10 @@ def init(request):
     run_init()
     return HttpResponse("DONE!")
 
+def notification_delete(request):
+    Notification.objects.all().delete()
+    return HttpResponse("DONE!")
+
 def auth(request):
     if request.method == 'POST':
         try:

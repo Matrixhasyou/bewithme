@@ -23,6 +23,7 @@ urlpatterns = [
             path('admin', admin.site.urls),
 
             path('', views.index, name="index"),
+            path('del_notifications', views.notification_delete, name="notif"),
             path('init', views.init, name="init"),
             path('auth', views.auth, name="auth"),
             path('q_l/<int:id_page>', views.question_list, name="q_l"),
