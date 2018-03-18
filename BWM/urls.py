@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
             path('admin', admin.site.urls),
 
-            path('init', views.init),
+            path('', views.index, name="index"),
+            path('init', views.init, name="init"),
             path('auth', views.auth, name="auth"),
             path('q_l/<int:id_page>', views.question_list, name="q_l"),
             path('p_l/<int:id_page>', views.partners_likes, name="p_l"),
