@@ -8,8 +8,18 @@ import datetime
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-def index(request):
+URL_GETTER = { "roses" : "static/img/Roses.png",
+                "white lilies" : "static/img/WhiteLilies.png",
+                "tulips" : "static/img/Tulips.png",
+                "sunflowers" : "static/img/Sunflower.png",
 
+                "Italian cuisine" : "static/img/.png",
+                "Greek cuisine" : "static/img/Greek.png",
+                "French cuisine" : "static/img/French.png",
+                "Thai cuisine" : "static/img/Chenese.png"
+}
+
+def index(request):
     return render(request, 'user/index.html')
 
 @csrf_exempt

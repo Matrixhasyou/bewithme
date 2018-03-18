@@ -2,6 +2,17 @@ from django.db import models
 import random
 import datetime
 
+URL_GETTER = { "roses" : "static/img/Roses.png",
+                "white lilies" : "static/img/WhiteLilies.png",
+                "tulips" : "static/img/Tulips.png",
+                "sunflowers" : "static/img/Sunflower.png",
+
+                "Italian cuisine" : "static/img/.png",
+                "Greek cuisine" : "static/img/Greek.png",
+                "French cuisine" : "static/img/French.png",
+                "Thai cuisine" : "static/img/Chenese.png"
+}
+
 def run_init():
     U1 = User(firstname="Alice",
                 lastname="Cooper",
@@ -21,7 +32,7 @@ def run_init():
 
     Q1 = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
-                 q_options_list = "roses,white lilies,tulips",
+                 q_options_list = "roses,white lilies,tulips,sunflowers",
                  q_last = "When did you last give {PARTNERSNAME}",
                  notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}", #to dict
                  img_url = "")
@@ -29,7 +40,7 @@ def run_init():
 
     Q2 = Question(question_text = 'What is your favorite cuisine?',
                  q_item = "cusine",
-                 q_options_list = "Italian cuisine,Thai cuisine,French cuisine",
+                 q_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine",
                  q_last = "When did you last take {PARTNERSNAME} to try {ITEM}",
                  notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}", #to dict
                  img_url = "")
@@ -37,7 +48,7 @@ def run_init():
     Q2.save()
 
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
-                      f_options_list = "roses,white lilies,tulips",
+                      f_options_list = "roses,white lilies,tulips,sunflowers",
                       user_id = 1,
                       f_item = "flowers",
                       f_options = "roses",
@@ -50,7 +61,7 @@ def run_init():
 
     F1.save()
     F2 = FavoriteItems(question_text = 'What is your favorite cuisine?',
-                      f_options_list = "Italian cuisine,Thai cuisine,French cuisine",
+                      f_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine",
                       user_id = 1,
                       f_item = "cusine",
                       f_options = "Italian cuisine,Thai cuisine",
@@ -62,6 +73,13 @@ def run_init():
     F2.save()
 
     return 'Done!'
+
+def get_option_url(some_list):
+    url = {}
+    options = some_list.split(',')
+    for o in options:
+        url[o] = URL_GETTER[o]
+    return url
 
 def how_often_to_days(how_often):
     string = how_often.split(' ')
@@ -124,12 +142,10 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
-    def get_options(self):
-        return self.q_options_list.split('/')
-
     def get_dict(self):
         data = { 'question_text' : self.question_text,
-                 'q_options_list' : self.get_options(),
+                 'q_options_list' : get_option_url(self.q_options_list),
+                 'q_options_selected' : get_option_url(self.q_options_selected),
                  'q_item' : self.q_item,}
         return data
 
@@ -164,10 +180,11 @@ class FavoriteItems(models.Model):
     def get_question(self):
         return self.f_last_q.replace("{ITEM}", self.f_item)+'?'
 
+
     def get_dict_first(self):
         data = { 'question_text' : self.question_text,
-                 'f_options_list' : self.f_options_list.split(','),
-                 'f_options' : self.f_options.split(','),
+                 'f_options_list' : get_option_url(self.f_options_list),
+                 'f_options' : get_option_url(self.f_options),
                  'question_id' : self.id,
                  'img_url': self.img_url,
                   }
@@ -178,7 +195,7 @@ class FavoriteItems(models.Model):
                 'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
                 'how_often' : days_to_how_often(self.how_often),
-                'f_options' : self.f_options.split(','),
+                'f_options' : get_option_url(self.f_options),
                 'favoriteitem_id' : self.id,
                 'img_url': self.img_url,
 
