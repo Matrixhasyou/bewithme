@@ -90,27 +90,26 @@ def jpartners_likes(request, id_user):
 def jget_reminders_list(request, id_user): # 1 alice
     data = []
     generate_reminders(id_user)#alice
-    reminders_list = Notification.objects.all()
-    for reminder in reminders_list:
-        data.append(reminder.get_dict())
+    notifications = Notification.objects.filter(user_id=id_user)
+    for n in notifications:
+        data.append(n.get_dict())
     return JsonResponse(data, safe=False)
 
-
-
-def generate_reminders(id_user):
-    fav_items = FavoriteItems.objects.filter(user_id=id_user)
+def generate_reminders(id_user):#a
+    fav_items = FavoriteItems.objects.filter(user_id=id_user)#a
     user = User.objects.get(id=id_user)
-    for fav_item in fav_items:
+    need_to_create_notification = True
+    for fav_item in fav_items: #all alice fav
         try:
-            notifications = Notification.objects.filter(favorite_id=fav_item.id)
-        except Notification.DoesNotExist: pass
-        item = random.choice(fav_item.f_options.split(','))
-        n = Notification(user_id = user.relation,
-                         favorite_id = fav_item.id,
-                         start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
-                         notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', item),
-                         done = False,)
-        n.save()
-
-
-        #
+            notifications = Notification.objects.filter(favorite_id=fav_item.id)#if fav has notif many
+            for notification in notifications: #every notification
+                if  notification.done:
+                    need_to_create_notification = False
+        except: pass
+        if need_to_create_notification and fav_item.how_often != 0:
+            n = Notification(user_id = user.relation,
+                             favorite_id = fav_item.id,
+                             start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
+                             notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', random.choice(fav_item.f_options.split(','))),
+                             done = False,)
+            n.save()
