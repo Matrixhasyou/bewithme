@@ -12,16 +12,19 @@ URL_GETTER = { "Roses" : "static/img/Roses.png",
                 "White Lilies" : "static/img/WhiteLilies.png",
                 "Tulips" : "static/img/Tulips.png",
                 "Sunflowers" : "static/img/Sunflower.png",
+                "Poppies" : "static/img/Poppy.png",
 
                 "Italian cuisine" : "static/img/Italian.png",
                 "Greek cuisine" : "static/img/Greek.png",
                 "French cuisine" : "static/img/French.png",
                 "Thai cuisine" : "static/img/Chenese.png",
+                "Ukranian cuisine" : "static/img/Ukranian.png",
 
                 "Western movie" : "static/img/Movie.png",
                 "Horror movie" : "static/img/Movie.png",
                 "Comedic movie" : "static/img/Movie.png",
-                "Romantic movie" : "static/img/Movie.png",}
+                "Romantic movie" : "static/img/Movie.png",
+                "Adventure movie" : "static/img/Movie.png",}}
 
 def index(request):
     return render(request, 'user/index.html')

@@ -6,16 +6,20 @@ URL_GETTER = { "Roses" : "static/img/Roses.png",
                 "White Lilies" : "static/img/WhiteLilies.png",
                 "Tulips" : "static/img/Tulips.png",
                 "Sunflowers" : "static/img/Sunflower.png",
+                "Poppies" : "static/img/Poppy.png",
 
                 "Italian cuisine" : "static/img/Italian.png",
                 "Greek cuisine" : "static/img/Greek.png",
                 "French cuisine" : "static/img/French.png",
                 "Thai cuisine" : "static/img/Chenese.png",
+                "Ukranian cuisine" : "static/img/Ukranian.png",
 
                 "Western movie" : "static/img/Movie.png",
                 "Horror movie" : "static/img/Movie.png",
                 "Comedic movie" : "static/img/Movie.png",
-                "Romantic movie" : "static/img/Movie.png",}
+                "Romantic movie" : "static/img/Movie.png",
+                "Adventure movie" : "static/img/Movie.png",}
+
 
 def run_init():
     U1 = User(firstname="Alice",
@@ -36,14 +40,14 @@ def run_init():
 
     Q1 = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
-                 q_options_list = "Roses,White Lilies,Tulips,Sunflowers",
+                 q_options_list = "Roses,White Lilies,Tulips,Sunflowers,Poppies",
                  q_last = "When did you last give {PARTNERSNAME} {ITEM}?",
                  notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
     Q1.save()
 
     Q2 = Question(question_text = 'What is your favorite cuisine?',
                  q_item = "cusine",
-                 q_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine",
+                 q_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine,Ukranian cuisine",
                  q_last = "When did you last take {PARTNERSNAME} to try {ITEM}?",
                  notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}",)
 
@@ -51,13 +55,13 @@ def run_init():
 
     Q3 = Question(question_text = 'What is your favorite movie genre?',
                  q_item = "movie",
-                 q_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie",
+                 q_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie,Adventure movie",
                  q_last = "When did you last take {PARTNERSNAME} to a {ITEM}?",
                  notification_text="Time to get you and {PARTNERSNAME} tickets to a {ITEM} film",)
     Q3.save()
 
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
-                      f_options_list = "Roses,White Lilies,Tulips,Sunflowers",
+                      f_options_list = "Roses,White Lilies,Tulips,Sunflowers,Poppies",
                       user_id = 1,
                       f_item = "flowers",
                       f_options = "Roses",
@@ -69,10 +73,10 @@ def run_init():
 
     F1.save()
     F2 = FavoriteItems(question_text = 'What is your favorite cuisine?',
-                      f_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine",
+                      f_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine,Ukranian cuisine",
                       user_id = 1,
                       f_item = "cusine",
-                      f_options = "Italian cuisine,Thai cuisine",
+                      f_options = "Italian cuisine,Thai cuisine,Ukranian cuisine",
                       f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}?",
                       f_last_date = datetime.datetime.now()-datetime.timedelta(days=31),
                       how_often = 30,
@@ -80,7 +84,7 @@ def run_init():
     F2.save()
 
     F3 = FavoriteItems(question_text = 'What is your favorite movie genre?',
-                      f_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie",
+                      f_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie,Adventure movie",
                       user_id = 1,
                       f_item = "movie",
                       f_options = "Western movie,Horror movie,Comedic movie,Romantic movie",
