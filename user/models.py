@@ -7,7 +7,7 @@ URL_GETTER = { "roses" : "static/img/Roses.png",
                 "tulips" : "static/img/Tulips.png",
                 "sunflowers" : "static/img/Sunflower.png",
 
-                "Italian cuisine" : "static/img/.png",
+                "Italian cuisine" : "static/img/Italian.png",
                 "Greek cuisine" : "static/img/Greek.png",
                 "French cuisine" : "static/img/French.png",
                 "Thai cuisine" : "static/img/Chenese.png"
