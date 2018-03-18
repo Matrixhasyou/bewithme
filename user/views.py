@@ -107,7 +107,7 @@ def generate_reminders(id_user):#a
                     need_to_create_notification = False
         except: pass
         if need_to_create_notification and fav_item.how_often != 0:
-            n = Notification(user_id = user.relation,
+            n = Notification(user_id = id_user,
                              favorite_id = fav_item.id,
                              start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
                              notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', random.choice(fav_item.f_options.split(','))),
