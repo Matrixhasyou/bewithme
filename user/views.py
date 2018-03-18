@@ -5,9 +5,19 @@ from django.http import HttpResponse
 from .models import User, Question, FavoriteItems, run_init, Notification, how_often_to_days, days_to_how_often
 import random
 import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     return render(request, 'user/index.html')
+
+@csrf_exempt
+def post_check(request):
+    if request.method == "POST":
+        data = request.POST
+        print(data)
+        return HttpResponse(data)
+    else:
+        return HttpResponse("Hello")
 
 def init(request):
     run_init()
@@ -17,6 +27,7 @@ def notification_delete(request):
     Notification.objects.all().delete()
     return HttpResponse("DONE!")
 
+@csrf_exempt
 def auth(request):
     if request.method == 'POST':
         try:
@@ -40,7 +51,7 @@ def partners_likes(request, id_page):
     f = FavoriteItems.objects.filter(user_id = user.relation)
     return render(request, "user/fav.html", {"user": user,
                                              "fav": f,})
-
+@csrf_exempt
 def jauth(request):
     data = {}
     if request.method == 'POST':
@@ -60,12 +71,12 @@ def jprofile(self, id_user):
     user = User.objects.get(id=id_user)
     return JsonResponse(user.get_dict() , safe=False)
 
-
+@csrf_exempt
 def jquestion_list(request, id_user):
     if request.method == 'POST':
-        fav_id = request.POST.get("fav_id", "")
+        fav_id = request.POST.get("question_id", "")
         fav_item = FavoriteItems.objects.get(id=fav_id)
-        fav_item.options = request.POST.get("options", "")
+        fav_item.options = request.POST.get("f_options", "")
         fav_item.save()
         return JsonResponse({})
     else:

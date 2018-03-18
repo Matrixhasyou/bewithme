@@ -23,16 +23,17 @@ def run_init():
                  q_item = "flowers",
                  q_options_list = "roses,daisies,tulips",
                  q_last = "When did you last give {PARTNERSNAME}",
-                 notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}" #to dict
-                 )
+                 notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}", #to dict
+                 img_url = "")
     Q1.save()
 
     Q2 = Question(question_text = 'What is your favorite cuisine?',
                  q_item = "cusine",
                  q_options_list = "Italian cuisine,Thai cuisine,French cuisine",
                  q_last = "When did you last take {PARTNERSNAME} to try {ITEM}",
-                 notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}" #to dict
-                 )
+                 notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}", #to dict
+                 img_url = "")
+                 
     Q2.save()
 
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
@@ -43,7 +44,9 @@ def run_init():
                       f_last_q = "When did you las give {PARTNERSNAME}",
                       f_last_date = datetime.datetime.now()-datetime.timedelta(days=60),
                       how_often = 60,
-                      notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
+                      notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",
+                      img_url = "")
+
 
     F1.save()
     F2 = FavoriteItems(question_text = 'What is your favorite cuisine?',
@@ -54,7 +57,8 @@ def run_init():
                       f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}",
                       f_last_date = datetime.datetime.now()-datetime.timedelta(days=31),
                       how_often = 30,
-                      notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}")
+                      notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}",
+                      img_url = "")
     F2.save()
 
     return 'Done!'
@@ -111,6 +115,7 @@ class Question(models.Model):
     q_options_selected = models.CharField(max_length=500, default="", blank=True)
     q_last = models.CharField(max_length=200, default="null")
     notification_text = models.CharField(max_length=200, default="null")
+    img_url = models.CharField(max_length=200, default="null")
 
     def __str__(self):
         return self.question_text
@@ -150,6 +155,7 @@ class FavoriteItems(models.Model):
     f_last_date = models.DateField(null=True, default=None)
     how_often = models.IntegerField(default=0, null=True)
     notification_text = models.CharField(max_length=200, default="null")
+    img_url = models.CharField(max_length=200, default="null")
 
     def get_question(self):
         return self.f_last_q +" "+self.f_item+'?'
@@ -159,6 +165,7 @@ class FavoriteItems(models.Model):
                  'f_options_list' : self.f_options_list.split(','),
                  'f_options' : self.f_options.split(','),
                  'question_id' : self.id,
+                 'img_url': self.img_url,
                   }
         return data
 
@@ -167,6 +174,9 @@ class FavoriteItems(models.Model):
                 'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
                 'how_often' : days_to_how_often(self.how_often),
+                'f_options' : self.f_options.split(','),
                 'favoriteitem_id' : self.id,
+                'img_url': self.img_url,
+
             }
         return data
