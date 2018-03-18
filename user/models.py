@@ -12,10 +12,10 @@ URL_GETTER = { "Roses" : "static/img/Roses.png",
                 "French cuisine" : "static/img/French.png",
                 "Thai cuisine" : "static/img/Chenese.png",
 
-                "Western" : "static/img/Movie.png",
-                "Horror" : "static/img/Movie.png",
-                "Comedic" : "static/img/Movie.png",
-                "Romantic" : "static/img/Movie.png",}
+                "Western movie" : "static/img/Movie.png",
+                "Horror movie" : "static/img/Movie.png",
+                "Comedic movie" : "static/img/Movie.png",
+                "Romantic movie" : "static/img/Movie.png",}
 
 def run_init():
     U1 = User(firstname="Alice",
