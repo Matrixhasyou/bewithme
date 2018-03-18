@@ -77,14 +77,14 @@ def jquestion_list(request, id_user):
         fav_id = request.POST.get("question_id", "")
         fav_item = FavoriteItems.objects.get(id=fav_id)
         fav_item.options = request.POST.get("f_options", "")
-        fav_item.save()
+        #fav_item.save()
         return JsonResponse({})
     else:
         data = []
         for fav_item in FavoriteItems.objects.filter(user_id=id_user):
             data.append(fav_item.get_dict_first(),)
         return JsonResponse(data, safe=False)
-        
+
 @csrf_exempt
 def jpartners_likes(request, id_user):
     if request.method == "POST":
