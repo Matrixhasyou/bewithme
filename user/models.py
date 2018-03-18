@@ -33,7 +33,7 @@ def run_init():
                  q_last = "When did you last take {PARTNERSNAME} to try {ITEM}",
                  notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}", #to dict
                  img_url = "")
-                 
+
     Q2.save()
 
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
@@ -75,16 +75,20 @@ def how_often_to_days(how_often):
         return 365
     elif string[-1] == 'chosen':
         return 0
+    else:
+        return 7
 
 def days_to_how_often(days):
     if days / 365 >= 1:
         return 'every year'
-    elif days / 30 > 1:
+    elif days / 30 >= 1:
         return 'every '+ str(days // 30) + ' months'
     elif days / 7 <=1 :
         return 'every week'
     elif days == 0:
         return 'Not chosen'
+    else:
+        return 'every week'
 
 class User(models.Model):
     firstname = models.CharField(max_length=255)

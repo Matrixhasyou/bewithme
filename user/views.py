@@ -84,7 +84,8 @@ def jquestion_list(request, id_user):
         for fav_item in FavoriteItems.objects.filter(user_id=id_user):
             data.append(fav_item.get_dict_first(),)
         return JsonResponse(data, safe=False)
-
+        
+@csrf_exempt
 def jpartners_likes(request, id_user):
     if request.method == "POST":
         fav_item = FavoriteItems.objects.get(id=request.POST.get("favoriteitem_id", ""))

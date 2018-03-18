@@ -1,8 +1,8 @@
-<a href="{%url 'init'%}"></a><button>init</button></a><br>
-<a href="{%url 'auth'%}"></a><button>auth</button></a><br>
-<a href="{%url 'notif'%}"></a><button>notifications remove</button></a><br>
+<a href="{%url 'init'%}"><button>init</button></a><br>
+<a href="{%url 'auth'%}"><button>auth</button></a><br>
+<a href="{%url 'notif'%}"><button>notifications remove</button></a><br>
 <form method="post">
   {%csrf_token%}
   <input type="text" name="option">
-  <a href="{%url 'post'%}"></a><button>post</button></a><br>
+  <a href="{%url 'post'%}"><button>post</button></a><br>
 </form>
