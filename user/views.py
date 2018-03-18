@@ -101,6 +101,7 @@ def jget_reminders_list(request, id_user): # 1 alice
 
 def generate_reminders(id_user):#a
     user = User.objects.get(id=id_user)
+    parner_user = User.objects.get(id=user.relation)
     fav_items = FavoriteItems.objects.filter(user_id=user.relation)#a
     for fav_item in fav_items: #all alice fav
         need_to_create_notification = True
@@ -114,6 +115,6 @@ def generate_reminders(id_user):#a
             n = Notification(user_id = id_user,
                              favorite_id = fav_item.id,
                              start_date = fav_item.f_last_date + datetime.timedelta(days=fav_item.how_often),
-                             notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', user.firstname).replace('{ITEM}', random.choice(fav_item.f_options.split(','))),
+                             notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', parner_user.firstname).replace('{ITEM}', random.choice(fav_item.f_options.split(','))),
                              done = False,)
             n.save()
