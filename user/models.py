@@ -4,14 +4,14 @@ import datetime
 
 def run_init():
     U1 = User(firstname="Alice",
-                lastname="A",
+                lastname="Cooper",
                 email="a@a.com",
                 password="alice",
                 gender="female",
                 relation="2",     )
     U1.save()
     U2 = User(firstname="Bob",
-                lastname="B",
+                lastname="Dylan",
                 email="b@a.com",
                 password="bob",
                 gender="male",

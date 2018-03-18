@@ -74,9 +74,11 @@ def jprofile(self, id_user):
 @csrf_exempt
 def jquestion_list(request, id_user):
     if request.method == 'POST':
-        fav_id = request.POST.get("question_id", "")
-        fav_item = FavoriteItems.objects.get(id=fav_id)
-        fav_item.options = request.POST.get("f_options", "")
+        print(request.POST['question_id'])
+        fav_id = request.POST['question_id']
+        #print(fav_id)
+        #fav_item = FavoriteItems.objects.get(id=fav_id)
+        #fav_item.options = request.POST.get("f_options", "")
         #fav_item.save()
         return JsonResponse({})
     else:
