@@ -102,8 +102,8 @@ def jget_reminders_list(request, id_user): # 1 alice
 def generate_reminders(id_user):#a
     user = User.objects.get(id=id_user)
     fav_items = FavoriteItems.objects.filter(user_id=user.relation)#a
-    need_to_create_notification = True
     for fav_item in fav_items: #all alice fav
+        need_to_create_notification = True
         try:
             notifications = Notification.objects.filter(favorite_id=fav_item.id)#if fav has notif many
             for notification in notifications: #every notification
