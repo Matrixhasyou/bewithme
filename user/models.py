@@ -162,7 +162,7 @@ class FavoriteItems(models.Model):
     img_url = models.CharField(max_length=200, default="null")
 
     def get_question(self):
-        return self.f_last_q +" "+self.f_item+'?'
+        return self.f_last_q.replace({ITEM}, self.f_item)+'?'
 
     def get_dict_first(self):
         data = { 'question_text' : self.question_text,
