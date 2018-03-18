@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 def index(request):
+
     return render(request, 'user/index.html')
 
 @csrf_exempt
