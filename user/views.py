@@ -133,3 +133,13 @@ def generate_reminders(id_user):#a
                              notification_text = fav_item.notification_text.replace('{PARTNERSNAME}', parner_user.firstname).replace('{ITEM}', random.choice(fav_item.f_options.split(','))),
                              done = False,)
             n.save()
+
+def update_reminder(request, id_notification):
+    if request.method == "POST":
+        json_data = json.loads(request.body.decode("utf-8"))
+        notification = Notification.objects.get(id=id_notification)
+        notification.done = json_data['done']
+        notification.start_date = json_data['start_date']
+        notification.save()
+    else:
+        return JsonResponse({})

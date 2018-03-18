@@ -21,7 +21,7 @@ def run_init():
 
     Q1 = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
-                 q_options_list = "roses,daisies,tulips",
+                 q_options_list = "roses,white lilies,tulips"
                  q_last = "When did you last give {PARTNERSNAME}",
                  notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}", #to dict
                  img_url = "")
@@ -37,7 +37,7 @@ def run_init():
     Q2.save()
 
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
-                      f_options_list = "roses,daisies,tulips",
+                      f_options_list = "roses,white lilies,tulips",
                       user_id = 1,
                       f_item = "flowers",
                       f_options = "roses",
