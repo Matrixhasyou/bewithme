@@ -6,6 +6,7 @@ from .models import User, Question, FavoriteItems, run_init, Notification, how_o
 import random
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 def index(request):
     return render(request, 'user/index.html')
@@ -74,12 +75,11 @@ def jprofile(self, id_user):
 @csrf_exempt
 def jquestion_list(request, id_user):
     if request.method == 'POST':
-        print(request.POST['question_id'])
-        fav_id = request.POST['question_id']
-        #print(fav_id)
-        #fav_item = FavoriteItems.objects.get(id=fav_id)
-        #fav_item.options = request.POST.get("f_options", "")
-        #fav_item.save()
+        json_data = json.loads(request.body.decode("utf-8"))
+        fav_id = json_data['question_id']
+        fav_item = FavoriteItems.objects.get(id=fav_id)
+        fav_item.f_options = ",".join(json_data['f_options'])
+        fav_item.save()
         return JsonResponse({})
     else:
         data = []
