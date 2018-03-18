@@ -2,16 +2,20 @@ from django.db import models
 import random
 import datetime
 
-URL_GETTER = { "roses" : "static/img/Roses.png",
-                "white lilies" : "static/img/WhiteLilies.png",
-                "tulips" : "static/img/Tulips.png",
-                "sunflowers" : "static/img/Sunflower.png",
+URL_GETTER = { "Roses" : "static/img/Roses.png",
+                "White Lilies" : "static/img/WhiteLilies.png",
+                "Tulips" : "static/img/Tulips.png",
+                "Sunflowers" : "static/img/Sunflower.png",
 
                 "Italian cuisine" : "static/img/Italian.png",
                 "Greek cuisine" : "static/img/Greek.png",
                 "French cuisine" : "static/img/French.png",
-                "Thai cuisine" : "static/img/Chenese.png"
-}
+                "Thai cuisine" : "static/img/Chenese.png",
+
+                "Western" : "static/img/Movie.png",
+                "Horror" : "static/img/Movie.png",
+                "Comedic" : "static/img/Movie.png",
+                "Romantic" : "static/img/Movie.png",}
 
 def run_init():
     U1 = User(firstname="Alice",
@@ -19,7 +23,7 @@ def run_init():
                 email="a@a.com",
                 password="alice",
                 gender="female",
-                relation="2",     )
+                relation="2",)
     U1.save()
     U2 = User(firstname="Bob",
                 lastname="Dylan",
@@ -32,31 +36,35 @@ def run_init():
 
     Q1 = Question(question_text = 'What are your favorite flowers?',
                  q_item = "flowers",
-                 q_options_list = "roses,white lilies,tulips,sunflowers",
-                 q_last = "When did you last give {PARTNERSNAME}",
-                 notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}", #to dict
-                 img_url = "")
+                 q_options_list = "Roses,White Lilies,Tulips,Sunflowers",
+                 q_last = "When did you last give {PARTNERSNAME} {ITEM}?",
+                 notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
     Q1.save()
 
     Q2 = Question(question_text = 'What is your favorite cuisine?',
                  q_item = "cusine",
                  q_options_list = "Italian cuisine,Thai cuisine,French cuisine,Greek cuisine",
-                 q_last = "When did you last take {PARTNERSNAME} to try {ITEM}",
-                 notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}", #to dict
-                 img_url = "")
+                 q_last = "When did you last take {PARTNERSNAME} to try {ITEM}?",
+                 notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}",)
 
     Q2.save()
 
+    Q3 = Question(question_text = 'What is your favorite movie genre?',
+                 q_item = "movie",
+                 q_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie",
+                 q_last = "When did you last take {PARTNERSNAME} to a {ITEM}?",
+                 notification_text="Time to get you and {PARTNERSNAME} tickets to a {ITEM} film",)
+    Q3.save()
+
     F1 = FavoriteItems(question_text = 'What are your favorite flowers?',
-                      f_options_list = "roses,white lilies,tulips,sunflowers",
+                      f_options_list = "Roses,White Lilies,Tulips,Sunflowers",
                       user_id = 1,
                       f_item = "flowers",
-                      f_options = "roses",
-                      f_last_q = "When did you las give {PARTNERSNAME}",
+                      f_options = "Roses",
+                      f_last_q = "When did you last give {PARTNERSNAME} {ITEM}?",
                       f_last_date = datetime.datetime.now()-datetime.timedelta(days=60),
                       how_often = 60,
-                      notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",
-                      img_url = "")
+                      notification_text="Time to get {PARTNERSNAME} a cute bunch of {ITEM}",)
 
 
     F1.save()
@@ -65,12 +73,22 @@ def run_init():
                       user_id = 1,
                       f_item = "cusine",
                       f_options = "Italian cuisine,Thai cuisine",
-                      f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}",
+                      f_last_q = "When did you last take {PARTNERSNAME} to try {ITEM}?",
                       f_last_date = datetime.datetime.now()-datetime.timedelta(days=31),
                       how_often = 30,
-                      notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}",
-                      img_url = "")
+                      notification_text="Time to take {PARTNERSNAME} to eat some {ITEM}",)
     F2.save()
+
+    F3 = FavoriteItems(question_text = 'What is your favorite movie genre?',
+                      f_options_list = "Western movie,Horror movie,Comedic movie,Romantic movie",
+                      user_id = 1,
+                      f_item = "movie",
+                      f_options = "Western movie,Horror movie,Comedic movie,Romantic movie",
+                      f_last_q = "When did you last take {PARTNERSNAME} to a {ITEM}?",
+                      f_last_date = datetime.datetime.now()-datetime.timedelta(days=51),
+                      how_often = 15,
+                      notification_text="Time to get you and {PARTNERSNAME} tickets to a {ITEM}",)
+    F3.save()
 
     return 'Done!'
 
@@ -137,7 +155,6 @@ class Question(models.Model):
     q_options_selected = models.CharField(max_length=500, default="", blank=True)
     q_last = models.CharField(max_length=200, default="null")
     notification_text = models.CharField(max_length=200, default="null")
-    img_url = models.CharField(max_length=200, default="null")
 
     def __str__(self):
         return self.question_text
@@ -175,29 +192,23 @@ class FavoriteItems(models.Model):
     f_last_date = models.DateField(null=True, default=None)
     how_often = models.IntegerField(default=0, null=True)
     notification_text = models.CharField(max_length=200, default="null")
-    img_url = models.CharField(max_length=200, default="null")
 
     def get_question(self):
-        return self.f_last_q.replace("{ITEM}", self.f_item)+'?'
+        return self.f_last_q.replace("{ITEM}", self.f_item)
 
 
     def get_dict_first(self):
         data = { 'question_text' : self.question_text,
                  'f_options_list' : get_option_url(self.f_options_list),
                  'f_options' : get_option_url(self.f_options),
-                 'question_id' : self.id,
-                 'img_url': self.img_url,
-                  }
+                 'question_id' : self.id,}
         return data
 
     def get_dict_second(self, name):
-        data = {'last_question': self.f_last_q.replace('{PARTNERSNAME}', name)+' '+random.choice(self.f_options.split(','))+'?',
+        data = {'last_question': self.f_last_q.replace('{PARTNERSNAME}', name).replace('{ITEM}', random.choice(self.f_options.split(','))),
                 'last_date': self.f_last_date,
                 'reminder' : "How often to remind you to do this?",
                 'how_often' : days_to_how_often(self.how_often),
                 'f_options' : get_option_url(self.f_options),
-                'favoriteitem_id' : self.id,
-                'img_url': self.img_url,
-
-            }
+                'favoriteitem_id' : self.id,}
         return data
