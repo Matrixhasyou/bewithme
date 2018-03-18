@@ -57,11 +57,11 @@ def jauth(request):
     data = {}
     if request.method == 'POST':
         try:
-            check_user = User.objects.get(email = request.POST.get("email", ""))
+            check_user = User.objects.get(email = json_data["email"])
         except User.DoesNotExist:
             data['invalid_data'] = "Wrong email or password"
             return JsonResponse(data)
-        if request.POST.get("password", "") == check_user.password:
+        if json_data["password"] == check_user.password:
             data["user_id"] = check_user.id
             return JsonResponse(data)
         else: return JsonResponse(data)
@@ -90,10 +90,11 @@ def jquestion_list(request, id_user):
 @csrf_exempt
 def jpartners_likes(request, id_user):
     if request.method == "POST":
-        fav_item = FavoriteItems.objects.get(id=request.POST.get("favoriteitem_id", ""))
+        json_data = json.loads(request.body.decode("utf-8"))
+        fav_item = FavoriteItems.objects.get(id=json_data["favoriteitem_id"])
         #if request.POST.get("last_date", "") != '':
-        fav_item.f_last_date = request.POST.get("last_date", "")
-        fav_item.how_often = how_often_to_days(request.POST.get("how_often", ""))
+        fav_item.f_last_date = json_data["last_date"]
+        fav_item.how_often = how_often_to_days(json_data["how_often"])
         fav_item.save()
         return JsonResponse({})
     else:
